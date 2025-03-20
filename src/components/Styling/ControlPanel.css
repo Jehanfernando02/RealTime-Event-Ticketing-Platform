@@ -1,0 +1,52 @@
+.control-panel {
+    max-width: 400px; /* Set a maximum width for the control panel */
+    margin: 20px auto; /* Center the control panel */
+    padding: 20px; /* Add padding */
+    border: 1px solid #ccc; /* Add a border */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    background-color: #f9f9f9; /* Light background color */
+}
+
+h2 {
+    text-align: center; /* Center the heading */
+}
+
+.button-group {
+    display: flex; /* Use flexbox for button layout */
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 10px; /* Space between buttons */
+}
+
+.control-button {
+    width: 100%; /* Full width buttons */
+    padding: 10px; /* Padding inside buttons */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Rounded corners for buttons */
+    color: white; /* White text color */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.start-button {
+    background-color: #28a745; /* Green color for start button */
+}
+
+.start-button:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+.stop-button {
+    background-color: #dc3545; /* Red color for stop button */
+}
+
+.stop-button:hover {
+    background-color: #c82333; /* Darker red on hover */
+}
+
+.reset-button {
+    background-color: #ffc107; /* Yellow color for reset button */
+}
+
+.reset-button:hover {
+    background-color: #e0a800; /* Darker yellow on hover */
+}

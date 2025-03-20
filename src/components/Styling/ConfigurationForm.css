@@ -1,0 +1,50 @@
+.configuration-form {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px;
+    
+  	/* More pronounced shadow for depth in configuration form to create a card-like effect*/
+  	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    
+  	background-color: #ffffff;
+}
+
+h2 {
+  	text-align: center;
+  	color: #333;
+}
+/* Styling for error messages */
+.error-text {
+    color: red;
+    font-size: 14px;
+    margin-top: 4px;
+    display: block;
+}
+
+
+.form-group {
+  	margin-bottom: 20px;
+}
+
+label {
+  	display: block;
+  	margin-bottom: 8px;
+  	font-weight: bold;
+}
+
+input {
+  	width: calc(100% - 20px); 
+  	padding: 12px;
+  	border-radius :5 px ; 
+  	font-size :16 px ;
+}
+.submit-button {
+  	width:100%; 
+  	padding :12 px ;
+  	background-color :#5cb85c ; 
+  	color:white ;
+  	border:none ;
+}
+.submit-button:hover{
+	background-color:#4cae4c ;/*Darker shade on hover to provide feedback*/
+}

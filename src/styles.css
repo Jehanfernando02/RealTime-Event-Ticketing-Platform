@@ -1,154 +1,147 @@
-/* Global Styles */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f7fc;
-  margin: 0;
-  padding: 0;
-}
-
-.container {
-  width: 80%;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-header {
-  text-align: center;
-}
-
-/* Main App Layout */
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Layout & Grid */
-.main-content {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 20px;
-}
-
-section {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.ticket-status,
-.log-display,
 .control-panel {
-  background-color: #fafafa;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px; /* Set a maximum width for the control panel */
+    margin: 20px auto; /* Center the control panel */
+    padding: 20px; /* Add padding */
+    border: 1px solid #ccc; /* Add a border */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    background-color: #f9f9f9; /* Light background color */
 }
 
-button {
-  padding: 10px 15px;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+h2 {
+    text-align: center; /* Center the heading */
 }
 
-button:hover {
-  background-color: #45a049;
+.button-group {
+    display: flex; /* Use flexbox for button layout */
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 10px; /* Space between buttons */
 }
 
-input {
-  padding: 10px;
-  width: 100%;
-  margin-top: 5px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+.control-button {
+    width: 100%; /* Full width buttons */
+    padding: 10px; /* Padding inside buttons */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Rounded corners for buttons */
+    color: white; /* White text color */
+    cursor: pointer; /* Pointer cursor on hover */
 }
 
-ul {
-  padding-left: 20px;
+.start-button {
+    background-color: #28a745; /* Green color for start button */
 }
 
-li {
-  margin-bottom: 5px;
+.start-button:hover {
+    background-color: #218838; /* Darker green on hover */
 }
 
-/* Notification */
-.notification {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  padding: 15px;
-  background-color: #f44336;
-  color: white;
-  border-radius: 5px;
+.stop-button {
+    background-color: #dc3545; /* Red color for stop button */
 }
 
-.notification.error {
-  background-color: #f44336;
+.stop-button:hover {
+    background-color: #c82333; /* Darker red on hover */
 }
 
-/* Configuration Form */
-.configuration-form button {
-  margin-top: 15px;
+.reset-button {
+    background-color: #ffc107; /* Yellow color for reset button */
 }
 
-.configuration-form input {
-  margin-top: 10px;
+.reset-button:hover {
+    background-color: #e0a800; /* Darker yellow on hover */
 }
 
-/* Flex Layout for Main Content */
-.main-content {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 20px;
-}
 
-button {
-  margin: 10px;
-  padding: 10px;
-  font-size: 14px;
-}
 
-.ticket-status,
-.control-panel,
 .log-display {
-  margin-bottom: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.log-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.log-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+}
+
+.log-item:last-child {
+    border-bottom: none;
+}
+
+.log-timestamp {
+    margin-right: 10px;
+    color: #888;
+}
+
+.log-item.info {
+    background-color: #e7f3fe; /* Light blue */
+}
+
+.log-item.warning {
+    background-color: #fff3cd; /* Light yellow */
+}
+
+.log-item.error {
+    background-color: #f8d7da; /* Light red */
+}
+
+.control-panel {
+    max-width: 400px; /* Set a maximum width for the control panel */
+    margin: 20px auto; /* Center the control panel */
+    padding: 20px; /* Add padding */
+    border: 1px solid #ccc; /* Add a border */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    background-color: #f9f9f9; /* Light background color */
+}
+
+h2 {
+    text-align: center; /* Center the heading */
+}
+
+.button-group {
+    display: flex; /* Use flexbox for button layout */
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 10px; /* Space between buttons */
+}
+
+.control-button {
+    width: 100%; /* Full width buttons */
+    padding: 10px; /* Padding inside buttons */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Rounded corners for buttons */
+    color: white; /* White text color */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.start-button {
+    background-color: #28a745; /* Green color for start button */
+}
+
+.start-button:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+.stop-button {
+    background-color: #dc3545; /* Red color for stop button */
+}
+
+.stop-button:hover {
+    background-color: #c82333; /* Darker red on hover */
+}
+
+.reset-button {
+    background-color: #ffc107; /* Yellow color for reset button */
+}
+
+.reset-button:hover {
+    background-color: #e0a800; /* Darker yellow on hover */
 }

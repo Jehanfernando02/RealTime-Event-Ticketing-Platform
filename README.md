@@ -1,70 +1,60 @@
-# Getting Started with Create React App
+Real-Time Event Ticketing Platform - Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+📖 Introduction
+The Real-Time Event Ticketing Platform Frontend is a user-friendly web application built with React. It allows users to configure ticketing parameters, start and stop the ticketing system, and view real-time updates on ticket availability and system logs. This frontend interacts with a Spring Boot backend to manage ticket sales dynamically.
 
-In the project directory, you can run:
+⚙️ Setup Instructions
+Prerequisites
+Before you begin, ensure you have the following installed on your machine:
 
-### `npm start`
+    Node.js: Version 14 or higher (recommended).
+    npm: Comes with Node.js for managing packages.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. How to Build and Run the Application
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+    Clone the Repository:
+    git clone https://github.com/Jehanfernando02/Real-Time-Event-Ticketing-System
+    cd Real-Time-Event-Ticketing-System/frontend
 
-### `npm test`
+2. Install Dependencies:
+Run the following command to install all necessary packages:
+    npm install
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. Run the Application:
+Start the React application with:
+    npm start
 
-### `npm run build`
+4. Access the Application:
+The frontend will be accessible at http://localhost:3000. Ensure that your backend is running on http://localhost:8080/api for API calls to function correctly.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+🛠️ Usage Instructions
+1. Configuring and Starting the System
+Configuration:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    Navigate to the Configuration Form in the application.
+    Enter the following parameters:
+        Total Number of Tickets: Specify how many tickets are available for sale.
+        Ticket Release Rate: Define how many tickets vendors can release per second.
+        Customer Retrieval Rate: Set how quickly customers can retrieve tickets.
+        Maximum Ticket Capacity: Indicate the maximum number of tickets that can be held in the system.
 
-### `npm run eject`
+Once you have entered these values, click on "Set Configuration" to save them.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+2. Managing the System:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    Use the Control Panel to manage system operations:
+        Start System: Begin processing tickets based on your configuration.
+        Stop System: Halt all operations.
+        Reset System: Clear all current operations and logs.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Explanation of UI Controls
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+    Configuration Form: Input fields for setting up ticket parameters with validation feedback for errors.
+    Control Panel: Buttons that allow users to control system operations (start, stop, reset).
+    Ticket Display: Displays real-time updates on available tickets.
+    Log Display: Shows logs of system activities for monitoring purposes.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+🎉 Conclusion
+The Real-Time Event Ticketing Platform Frontend is designed to provide an intuitive interface for managing ticket sales in real-time. By following these instructions, you can easily set up and run the frontend application alongside your backend service. For any further questions or contributions, feel free to reach out or submit issues on the repository! This README file focuses solely on the frontend aspect of your project, detailing setup instructions, usage guidelines, and providing an overview of UI components and their functionalities. Adjust any sections as necessary to fit your specific project details!
