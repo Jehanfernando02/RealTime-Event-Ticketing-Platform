@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8080/api'; 
+// Use environment variable or fallback to Render URL
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://realtime-event-ticketing-platform-backend.onrender.com/api';
 
 // Function to configure the ticketing system with provided settings.
 export const configureSystem = async (config) => {
@@ -46,20 +47,20 @@ export const getLogs = async () => {
 
 // Function to add a vendor with specified name and release rate.
 export const addVendor = async (name, releaseRate) => {
-  	const response = await fetch(`${API_BASE_URL}/vendor?name=${name}&releaseRate=${releaseRate}`, { method: 'POST' });
-  	
-  	// Check for successful response and throw an error if not.
-  	if (!response.ok) {
-      	throw new Error('Failed to add vendor');
-  	}
+    const response = await fetch(`${API_BASE_URL}/vendor?name=${name}&releaseRate=${releaseRate}`, { method: 'POST' });
+    
+    // Check for successful response and throw an error if not.
+    if (!response.ok) {
+        throw new Error('Failed to add vendor');
+    }
 };
 
 // Function to add a customer with specified name and retrieval rate.
 export const addCustomer = async (name, retrievalRate) => {
-  	const response = await fetch(`${API_BASE_URL}/customer?name=${name}&retrievalRate=${retrievalRate}`, { method: 'POST' });
-  	
-  	// Check for successful response and throw an error if not.
-  	if (!response.ok) {
-      	throw new Error('Failed to add customer');
-  	}
+    const response = await fetch(`${API_BASE_URL}/customer?name=${name}&retrievalRate=${retrievalRate}`, { method: 'POST' });
+    
+    // Check for successful response and throw an error if not.
+    if (!response.ok) {
+        throw new Error('Failed to add customer');
+    }
 };
