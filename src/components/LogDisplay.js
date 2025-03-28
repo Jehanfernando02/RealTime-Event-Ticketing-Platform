@@ -1,34 +1,42 @@
 import React, { useEffect, useState } from 'react';
-import { getLogs } from '../services/api';
+import { getLogs, getStatus } from '../services/api';
 import './Styling/LogDisplay.css';
 
 const LogDisplay = () => {
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [status, setStatus] = useState(null);
+
+  const fetchData = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      // Fetch system status to provide context
+      const statusData = await getStatus();
+      setStatus(statusData.currentTicketsAvailable);
+      console.log('System status:', statusData);
+
+      // Fetch logs from the backend
+      const logData = await getLogs();
+      console.log('Raw log data from getLogs:', logData);
+      console.log('Is logData an array?', Array.isArray(logData));
+      console.log('Log data length:', logData ? logData.length : 'undefined');
+
+      // Ensure logData is an array, fallback to empty array if not
+      setLogs(Array.isArray(logData) ? logData : []);
+    } catch (error) {
+      console.error('Error fetching logs:', error);
+      setError('Failed to fetch logs. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchLogs = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const logData = await getLogs();
-        console.log('Raw log data from getLogs:', logData); // Exact response
-        console.log('Is logData an array?', Array.isArray(logData)); // Type check
-        console.log('Log data length:', logData ? logData.length : 'undefined'); // Length check
-        setLogs(logData || []); // Set logs, fallback to [] if null/undefined
-      } catch (error) {
-        console.error('Error fetching logs:', error);
-        setError('Failed to fetch logs: ' + error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchLogs();
-    const intervalId = setInterval(fetchLogs, 3000);
-
-    return () => clearInterval(intervalId);
+    fetchData();
+    const intervalId = setInterval(fetchData, 3000); // Poll every 3 seconds
+    return () => clearInterval(intervalId); // Cleanup on unmount
   }, []);
 
   return (
@@ -36,14 +44,15 @@ const LogDisplay = () => {
       <h2>Log Display</h2>
       {loading && <p className="loading">Loading logs...</p>}
       {error && <p className="error">{error}</p>}
+      {status !== null && <p>Current Tickets Available: {status}</p>}
       {logs.length > 0 ? (
         <div className="log-list">
           {logs.map((log, index) => {
-            if (!log) return null;
+            if (!log || typeof log !== 'string') return null; // Skip invalid logs
             const logParts = log.split(' ');
-            const dateTime = `${logParts[0]} ${logParts[1]}`;
+            const dateTime = logParts.length > 1 ? `${logParts[0]} ${logParts[1]}` : 'Unknown Time';
             const level = logParts[2]?.replace(':', '') || 'UNKNOWN';
-            const message = logParts.slice(3).join(' ');
+            const message = logParts.length > 3 ? logParts.slice(3).join(' ') : log;
             const logLevelClass = level.toLowerCase();
             return (
               <div key={index} className={`log-entry ${logLevelClass}`}>
