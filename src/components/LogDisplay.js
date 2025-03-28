@@ -13,8 +13,8 @@ const LogDisplay = () => {
       setError(null);
       try {
         const logData = await getLogs();
-        console.log('Fetched logs:', logData);
-        setLogs(logData || []); // Set logs directly, fallback to [] if null/undefined
+        console.log('Fetched logs:', logData); // Debug: See exact data
+        setLogs(logData || []); // Set logs, fallback to [] if null
       } catch (error) {
         console.error('Error fetching logs:', error);
         setError('Failed to fetch logs. Please try again later.');
