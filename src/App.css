@@ -1,153 +1,43 @@
 .App {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #0d1b2a 0%, #1b263b 50%, #415a77 100%);
-  min-height: 100vh;
-  padding: 0 0 60px 0; /* Added bottom padding */
-  color: #fff;
-  box-sizing: border-box;
-}
-
-.app-header {
-  background: rgba(255, 255, 255, 0.05);
-  padding: 35px;
   text-align: center;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  margin: 20px;
+  font-family: Arial, sans-serif;
 }
 
-h1 {
-  background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-size: clamp(2.2rem, 6vw, 3.5rem);
-  font-weight: 800;
-  text-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-  margin: 0;
-}
-
-.app-container {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 40px;
-  max-width: 1500px;
-  margin: 40px auto;
-  padding: 0 30px;
-}
-
-.main-content {
-  flex: 3;
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
 }
 
-.status-logs {
-  display: flex;
-  flex-direction: row;
-  gap: 40px;
-  width: 100%;
-  max-width: 1000px;
-  margin-top: 40px;
+h1 {
+  color: #333;
 }
 
-.status-logs > div {
-  flex: 1;
-  min-width: 0;
-}
-
-/* Side Box Styling */
-.side-box {
-  flex: 1;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 25px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
-  padding: 30px;
-  max-width: 360px;
-  color: #0d1b2a;
-  position: sticky;
-  top: 30px;
-  backdrop-filter: blur(15px);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.side-box:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
-}
-
-.side-box h3 {
-  color: #ff6b6b;
-  margin-bottom: 20px;
-  font-size: clamp(1.5rem, 4vw, 2rem);
-  font-weight: 700;
-}
-
-.side-box p {
-  font-size: clamp(1rem, 3vw, 1.2rem);
-  line-height: 1.6;
-  margin-bottom: 15px;
-}
-
-.side-box ol {
-  padding-left: 25px;
+form {
   margin-bottom: 20px;
 }
 
-.side-box li {
-  margin-bottom: 12px;
-  font-size: clamp(1rem, 3vw, 1.2rem);
+input {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
-.side-box strong {
-  color: #000000;
+button {
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .app-container {
-    flex-direction: column;
-    align-items: center;
-    margin: 30px auto;
-    padding: 0 20px;
-  }
-
-  .main-content {
-    flex: none;
-    width: 100%;
-  }
-
-  .side-box {
-    position: static;
-    max-width: 100%;
-    margin-top: 40px;
-  }
-
-  .status-logs {
-    flex-direction: column;
-    gap: 30px;
-    max-width: 100%;
-  }
+button:hover {
+  background-color: #218838;
 }
 
-@media (max-width: 480px) {
-  .App {
-    padding-bottom: 40px; /* Reduced for mobile */
-  }
-
-  .app-header {
-    padding: 20px;
-  }
-
-  .app-container {
-    gap: 30px;
-    padding: 0 15px;
-    margin: 20px auto;
-  }
-
-  .side-box {
-    padding: 20px;
-  }
+h2 {
+  margin-top: 20px;
 }

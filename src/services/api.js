@@ -41,15 +41,8 @@ export const getStatus = async () => {
 
 // Function to retrieve logs from the backend.
 export const getLogs = async () => {
-    try {
-        const response = await axios.get(`${API_BASE_URL}/logs`, { timeout: 5000 }); // Added 5s timeout
-        console.log('Raw API response for logs:', response); // Debug: Full response
-        console.log('Logs data:', response.data); // Debug: Just the data
-        return response.data; // Should return an array of log strings
-    } catch (error) {
-        console.error('Error fetching logs:', error); // Debug: Full error details
-        throw error; // Propagate error to component
-    }
+    const response = await axios.get(`${API_BASE_URL}/logs`);
+    return response.data;  
 };
 
 // Function to add a vendor with specified name and release rate.
