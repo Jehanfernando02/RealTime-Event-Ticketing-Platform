@@ -13,10 +13,10 @@ const LogDisplay = () => {
       setError(null);
       try {
         const logData = await getLogs();
-        console.log('Raw log data from getLogs:', logData); // Exact response
-        console.log('Is logData an array?', Array.isArray(logData)); // Type check
-        console.log('Log data length:', logData ? logData.length : 'undefined'); // Length check
-        setLogs(logData || []); // Set logs, fallback to [] if null/undefined
+        console.log('Raw log data from getLogs:', logData);
+        console.log('Is logData an array?', Array.isArray(logData));
+        console.log('Log data length:', logData ? logData.length : 'undefined');
+        setLogs(logData || []);
       } catch (error) {
         console.error('Error fetching logs:', error);
         setError('Failed to fetch logs: ' + error.message);
