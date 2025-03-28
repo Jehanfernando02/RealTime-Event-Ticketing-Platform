@@ -3,7 +3,7 @@ import './App.css';
 import ConfigurationForm from './components/ConfigurationForm';
 import TicketDisplay from './components/TicketDisplay';
 import ControlPanel from './components/ControlPanel';
-import LogDisplay from './components/LogDisplay';
+import LogDisplay from './components/LogDisplay'; // Correct import path
 
 function App() {
   return (
@@ -21,15 +21,15 @@ function App() {
           </div>
         </div>
         <aside className="side-box">
-          <h3>🌟 How to Rock This Simulator</h3>
-          <p>Unleash the power of real-time ticketing with these steps:</p>
+          <h3>✨ How to Shine with This Simulator</h3>
+          <p>Master real-time ticketing in style:</p>
           <ol>
-            <li><strong>Set the Scene:</strong> Fill out the Configuration Form.</li>
-            <li><strong>Launch It:</strong> Click "Set Configuration" to ignite the system.</li>
-            <li><strong>Start the Party:</strong> Hit "Start System" and watch it glow.</li>
-            <li><strong>Live Action:</strong> See logs and tickets dazzle in real-time!</li>
+            <li><strong>Configure It:</strong> Fill out the Configuration Form.</li>
+            <li><strong>Activate:</strong> Hit "Set Configuration" to spark it up.</li>
+            <li><strong>Launch:</strong> Click "Start System" and let it roll.</li>
+            <li><strong>Enjoy:</strong> Watch logs and tickets light up live!</li>
           </ol>
-          <p>Get ready for a ticketing spectacle!</p>
+          <p>Unleash the ticketing magic!</p>
         </aside>
       </div>
     </div>
