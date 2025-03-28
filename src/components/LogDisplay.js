@@ -13,11 +13,13 @@ const LogDisplay = () => {
       setError(null);
       try {
         const logData = await getLogs();
-        console.log('Fetched logs:', logData); // Debug: See exact data
-        setLogs(logData || []); // Set logs, fallback to [] if null
+        console.log('Raw log data from getLogs:', logData); // Exact response
+        console.log('Is logData an array?', Array.isArray(logData)); // Type check
+        console.log('Log data length:', logData ? logData.length : 'undefined'); // Length check
+        setLogs(logData || []); // Set logs, fallback to [] if null/undefined
       } catch (error) {
         console.error('Error fetching logs:', error);
-        setError('Failed to fetch logs. Please try again later.');
+        setError('Failed to fetch logs: ' + error.message);
       } finally {
         setLoading(false);
       }
