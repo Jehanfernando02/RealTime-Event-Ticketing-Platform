@@ -1,28 +1,119 @@
 .log-display {
-    max-width: 600px; /* Max width for the log display */
-    margin: 20px auto; /* Center the display */
-    padding: 20px; /* Padding around the content */
-    border: 1px solid #ccc; /* Light border */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    background-color: #ffffff; /* White background color */
-}
-
-.log-display h2 {
-    font-size: 24px; /* Larger font size for the heading */
-    color: #333; /* Darker color for better contrast */
-    text-align: center; /* Center align heading */
-}
-
-.log-entry {
-    padding: 10px; /* Padding for each log entry */
-    border-bottom: 1px solid #eaeaea; /* Light bottom border for separation */
-}
-
-.log-entry:last-child {
-    border-bottom: none; /* Remove bottom border for last entry to avoid double borders */
-}
-
-.log-level {
-    font-weight: bold; /* Bold text for log level */
-}
+    max-width: 800px; /* Increased from 650px */
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+    background: linear-gradient(135deg, #ffffff 0%, #e5f6f5 100%);
+    backdrop-filter: blur(15px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .log-display:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+  }
+  
+  h2 {
+    font-size: clamp(1.8rem, 5vw, 2.2rem);
+    color: #0d1b2a;
+    font-weight: 800;
+    margin-bottom: 25px;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .log-list {
+    max-height: 600px; /* Increased from 450px for more logs */
+    overflow-y: auto;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 25px; /* Increased from 20px */
+    box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .log-entry {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  
+  .log-entry:hover {
+    background: rgba(78, 205, 196, 0.15);
+    transform: translateX(8px);
+  }
+  
+  .log-entry:last-child {
+    border-bottom: none;
+  }
+  
+  .log-time {
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    color: #1b263b;
+    font-weight: 600;
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+  
+  .log-level {
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    font-weight: 700;
+    color: #ff6b6b;
+    margin: 0 8px;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  
+  .log-message {
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    color: #415a77;
+    word-break: break-word;
+  }
+  
+  .log-entry.info .log-message {
+    color: #4ecdc4;
+  }
+  
+  .log-entry.warning .log-message {
+    color: #ffe66d;
+  }
+  
+  .loading, .error, .no-logs {
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    color: #1b263b;
+    text-align: center;
+    padding: 20px;
+    font-style: italic;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+  }
+  
+  .error {
+    color: #ff8787;
+    background: rgba(255, 135, 135, 0.1);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 480px) {
+    .log-display {
+      padding: 25px;
+    }
+  
+    .log-list {
+      max-height: 400px; /* Adjusted for mobile, still larger than before */
+      padding: 15px;
+    }
+  
+    .log-entry {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 12px;
+    }
+  
+    .log-time, .log-level {
+      margin-right: 0;
+      margin-bottom: 5px;
+    }
+  }

@@ -1,52 +1,100 @@
 .control-panel {
-    max-width: 400px; /* Set a maximum width for the control panel */
-    margin: 20px auto; /* Center the control panel */
-    padding: 20px; /* Add padding */
-    border: 1px solid #ccc; /* Add a border */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    background-color: #f9f9f9; /* Light background color */
-}
-
-h2 {
-    text-align: center; /* Center the heading */
-}
-
-.button-group {
-    display: flex; /* Use flexbox for button layout */
-    flex-direction: column; /* Stack buttons vertically */
-    gap: 10px; /* Space between buttons */
-}
-
-.control-button {
-    width: 100%; /* Full width buttons */
-    padding: 10px; /* Padding inside buttons */
-    border: none; /* Remove border */
-    border-radius: 4px; /* Rounded corners for buttons */
-    color: white; /* White text color */
-    cursor: pointer; /* Pointer cursor on hover */
-}
-
-.start-button {
-    background-color: #28a745; /* Green color for start button */
-}
-
-.start-button:hover {
-    background-color: #218838; /* Darker green on hover */
-}
-
-.stop-button {
-    background-color: #dc3545; /* Red color for stop button */
-}
-
-.stop-button:hover {
-    background-color: #c82333; /* Darker red on hover */
-}
-
-.reset-button {
-    background-color: #ffc107; /* Yellow color for reset button */
-}
-
-.reset-button:hover {
-    background-color: #e0a800; /* Darker yellow on hover */
-}
+    max-width: 600px;
+    margin: 0 auto 40px;
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+    background: linear-gradient(135deg, #ffffff 0%, #e5f6f5 100%);
+    backdrop-filter: blur(15px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .control-panel:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+  }
+  
+  h2 {
+    text-align: center;
+    color: #0d1b2a;
+    font-size: clamp(1.8rem, 5vw, 2.2rem);
+    font-weight: 800;
+    margin-bottom: 25px;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .button-group {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .control-button {
+    flex: 1;
+    min-width: 140px;
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .control-button:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  }
+  
+  .control-button:disabled {
+    background: linear-gradient(90deg, #ccc, #999);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+  
+  .start-button {
+    background: linear-gradient(90deg, #4ecdc4, #45b7d1);
+  }
+  
+  .start-button:hover {
+    background: linear-gradient(90deg, #45b7d1, #3ca5b8);
+  }
+  
+  .stop-button {
+    background: linear-gradient(90deg, #ff8787, #ff6b6b);
+  }
+  
+  .stop-button:hover {
+    background: linear-gradient(90deg, #ff6b6b, #e65c5c);
+  }
+  
+  .reset-button {
+    background: linear-gradient(90deg, #ffe66d, #ffd700);
+    color: #0d1b2a;
+  }
+  
+  .reset-button:hover {
+    background: linear-gradient(90deg, #ffd700, #e6c200);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 480px) {
+    .control-panel {
+      padding: 25px;
+      margin: 0 auto 30px;
+    }
+  
+    .button-group {
+      flex-direction: column;
+      gap: 15px;
+    }
+  
+    .control-button {
+      min-width: 100%;
+    }
+  }
