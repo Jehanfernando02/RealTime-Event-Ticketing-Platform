@@ -2,9 +2,29 @@ import axios from 'axios';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://realtime-event-ticketing-platform-backend.onrender.com/api';
 
+// Create an axios instance with default settings
+const apiClient = axios.create({
+    baseURL: API_BASE_URL,
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+    }
+});
+
+// Add response interceptor for debugging
+apiClient.interceptors.response.use(
+    response => {
+        return response;
+    },
+    error => {
+        console.error('API Error:', error.response || error);
+        return Promise.reject(error);
+    }
+);
+
 export const configureSystem = async (config) => {
     try {
-        const response = await axios.post(`${API_BASE_URL}/config`, config);
+        const response = await apiClient.post('/config', config);
         return response.data;
     } catch (error) {
         console.error('configureSystem error:', error);
@@ -14,7 +34,7 @@ export const configureSystem = async (config) => {
 
 export const startSystem = async () => {
     try {
-        const response = await axios.post(`${API_BASE_URL}/start`);
+        const response = await apiClient.post('/start');
         return response.data;
     } catch (error) {
         console.error('startSystem error:', error);
@@ -24,7 +44,7 @@ export const startSystem = async () => {
 
 export const stopSystem = async () => {
     try {
-        const response = await axios.post(`${API_BASE_URL}/stop`);
+        const response = await apiClient.post('/stop');
         return response.data;
     } catch (error) {
         console.error('stopSystem error:', error);
@@ -34,7 +54,7 @@ export const stopSystem = async () => {
 
 export const resetSystem = async () => {
     try {
-        const response = await axios.post(`${API_BASE_URL}/reset`);
+        const response = await apiClient.post('/reset');
         return response.data;
     } catch (error) {
         console.error('resetSystem error:', error);
@@ -44,7 +64,7 @@ export const resetSystem = async () => {
 
 export const clearLogs = async () => {
     try {
-        const response = await axios.post(`${API_BASE_URL}/clear-logs`);
+        const response = await apiClient.post('/clear-logs');
         return response.data;
     } catch (error) {
         console.error('clearLogs error:', error);
@@ -54,7 +74,7 @@ export const clearLogs = async () => {
 
 export const getStatus = async () => {
     try {
-        const response = await axios.get(`${API_BASE_URL}/status`);
+        const response = await apiClient.get('/status');
         return response.data;
     } catch (error) {
         console.error('getStatus error:', error);
@@ -64,8 +84,7 @@ export const getStatus = async () => {
 
 export const getLogs = async () => {
     try {
-        const response = await axios.get(`${API_BASE_URL}/logs`);
-        console.log('API Logs Response:', response.data); // Debug log
+        const response = await apiClient.get('/logs');
         return response.data;
     } catch (error) {
         console.error('getLogs error:', error);
@@ -75,7 +94,7 @@ export const getLogs = async () => {
 
 export const addVendor = async (name, releaseRate) => {
     try {
-        const response = await axios.post(`${API_BASE_URL}/vendor`, null, {
+        const response = await apiClient.post('/vendor', null, {
             params: { name, releaseRate },
         });
         return response.data;
@@ -87,7 +106,7 @@ export const addVendor = async (name, releaseRate) => {
 
 export const addCustomer = async (name, retrievalRate) => {
     try {
-        const response = await axios.post(`${API_BASE_URL}/customer`, null, {
+        const response = await apiClient.post('/customer', null, {
             params: { name, retrievalRate },
         });
         return response.data;
