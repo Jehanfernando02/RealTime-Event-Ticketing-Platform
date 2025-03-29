@@ -15,7 +15,15 @@ const LogDisplay = () => {
         setError(null);
         try {
             const logData = await getLogs();
-            setLogs(logData);
+            console.log('Fetched logs:', logData);
+            
+            // Ensure logData is an array
+            if (Array.isArray(logData)) {
+                setLogs(logData);
+            } else {
+                console.error('Unexpected log data format:', logData);
+                setLogs([]);
+            }
         } catch (error) {
             console.error('Error fetching logs:', error);
             setError('Failed to fetch logs. Please try again later.');
@@ -64,26 +72,41 @@ const LogDisplay = () => {
         }
     }, [logs]);
 
+    // Function to determine log type from log message
+    const getLogTypeFromMessage = (log) => {
+        if (!log || typeof log !== 'string') return 'info';
+        
+        if (log.includes('VENDOR:')) return 'vendor';
+        if (log.includes('CUSTOMER:')) return 'customer';
+        if (log.includes('CANCEL:')) return 'cancel';
+        if (log.includes('ADMIN:')) return 'admin';
+        if (log.includes('SYSTEM:')) return 'system';
+        if (log.includes('WARNING:')) return 'warning';
+        if (log.includes('SEVERE:') || log.includes('ERROR:')) return 'error';
+        
+        return 'info';
+    };
+
     return (
         <div className="log-display">
-            <div className="controls">
+            <div className="log-header">
                 <h2>System Logs</h2>
-                <div>
+                <div className="log-controls">
                     <button 
-                        className="button refresh-button" 
+                        className="log-button refresh-button" 
                         onClick={fetchLogs} 
                         disabled={loading}
                     >
                         {loading ? 'Loading...' : 'Refresh Now'}
                     </button>
                     <button 
-                        className={`button auto-refresh-button ${!autoRefresh ? 'off' : ''}`}
+                        className={`log-button auto-refresh-button ${!autoRefresh ? 'off' : ''}`}
                         onClick={toggleAutoRefresh}
                     >
                         {autoRefresh ? 'Auto-Refresh On' : 'Auto-Refresh Off'}
                     </button>
                     <button 
-                        className="button clear-button"
+                        className="log-button clear-button"
                         onClick={handleClearLogs}
                         disabled={loading}
                     >
@@ -92,7 +115,7 @@ const LogDisplay = () => {
                 </div>
             </div>
             
-            {error && <p className="error">{error}</p>}
+            {error && <div className="log-error">{error}</div>}
             
             <div className="log-legend">
                 <div className="log-legend-item">
@@ -117,46 +140,29 @@ const LogDisplay = () => {
                 </div>
             </div>
             
-            <div ref={logListRef} className="log-list">
-                {logs.length > 0 ? (
+            <div ref={logListRef} className="log-container">
+                {logs && logs.length > 0 ? (
                     logs.map((log, index) => {
-                        if (!log) return null; // Skip if log is undefined or null
-
-                        const logParts = log.split(' '); // Split log into parts
-                        
-                        // Extract date and time (first two parts)
-                        const dateTime = `${logParts[0]} ${logParts[1]}`;
-                        
-                        // Extract log level (third part, remove colon)
-                        let level = logParts[2]?.replace(':', '');
+                        if (!log) return null;
                         
                         // Determine log type for styling
-                        let logType = 'info'; // Default
-                        if (level === 'VENDOR') logType = 'vendor';
-                        else if (level === 'CUSTOMER') logType = 'customer';
-                        else if (level === 'CANCEL') logType = 'cancel';
-                        else if (level === 'ADMIN') logType = 'admin';
-                        else if (level === 'SYSTEM') logType = 'system';
-                        else if (level === 'WARNING') logType = 'warning';
-                        else if (level === 'SEVERE') logType = 'error';
+                        const logType = getLogTypeFromMessage(log);
                         
-                        // Join the rest as message
-                        const message = logParts.slice(3).join(' ');
-
                         return (
                             <div key={index} className={`log-entry ${logType}`}>
-                                <strong>{dateTime}</strong> <span className="log-level">{level}:</span> {message}
+                                {log}
                             </div>
                         );
                     })
                 ) : (
-                    !loading && <p>No logs available yet. Start the system to generate logs.</p>
+                    <div className="log-empty">
+                        {loading ? 'Loading logs...' : 'No logs available yet. Start the system to generate logs.'}
+                    </div>
                 )}
-                {loading && logs.length === 0 && <p className="loading">Loading logs...</p>}
             </div>
             
             <div className="log-stats">
-                <span>Total logs: {logs.length}</span>
+                <span>Total logs: {logs ? logs.length : 0}</span>
                 <span>{autoRefresh ? 'Auto-refreshing every 3 seconds' : 'Auto-refresh disabled'}</span>
             </div>
         </div>
