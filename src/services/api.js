@@ -66,9 +66,23 @@ export const getLogs = async () => {
     try {
         const response = await axios.get(`${API_BASE_URL}/logs`);
         console.log('API Logs Response:', response);
-        return response.data;
+        
+        // Ensure we're returning the data property
+        if (response && response.data) {
+            return response.data;
+        } else {
+            console.error('Unexpected response format:', response);
+            return [];
+        }
     } catch (error) {
         console.error('getLogs error:', error);
+        // Add more detailed error logging
+        if (error.response) {
+            console.error('Error response data:', error.response.data);
+            console.error('Error response status:', error.response.status);
+        } else if (error.request) {
+            console.error('Error request:', error.request);
+        }
         throw error;
     }
 };
