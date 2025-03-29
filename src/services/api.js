@@ -65,6 +65,7 @@ export const getStatus = async () => {
 export const getLogs = async () => {
     try {
         const response = await axios.get(`${API_BASE_URL}/logs`);
+        console.log('API Logs Response:', response.data); // Debug log
         return response.data;
     } catch (error) {
         console.error('getLogs error:', error);
@@ -72,8 +73,6 @@ export const getLogs = async () => {
     }
 };
 
-// Note: These endpoints (/vendor, /customer) are not in your original backend controller.
-// Remove or implement them in TicketSystemController if needed.
 export const addVendor = async (name, releaseRate) => {
     try {
         const response = await axios.post(`${API_BASE_URL}/vendor`, null, {
