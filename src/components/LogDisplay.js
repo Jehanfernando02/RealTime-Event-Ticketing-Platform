@@ -20,13 +20,12 @@ const LogDisplay = () => {
             if (Array.isArray(logData)) {
                 setLogs(logData);
             } else if (typeof logData === 'string') {
-                setLogs([logData]);
+                setLogs([{ type: 'INFO', message: logData }]);
             } else if (logData && typeof logData === 'object') {
-                // If it's an object with a data property (common API response pattern)
                 if (Array.isArray(logData.data)) {
                     setLogs(logData.data);
                 } else {
-                    setLogs([JSON.stringify(logData)]);
+                    setLogs([{ type: 'INFO', message: JSON.stringify(logData) }]);
                 }
             } else {
                 setLogs([]);
@@ -79,6 +78,52 @@ const LogDisplay = () => {
             logListRef.current.scrollTop = logListRef.current.scrollHeight;
         }
     }, [logs]);
+
+    // Function to get log style based on type
+    const getLogStyle = (type) => {
+        switch (type) {
+            case 'VENDOR':
+                return { 
+                    color: '#28a745', // Green
+                    fontWeight: 'bold'
+                };
+            case 'CUSTOMER':
+                return { 
+                    color: '#007bff', // Blue
+                    fontWeight: 'normal'
+                };
+            case 'CANCEL':
+                return { 
+                    color: '#dc3545', // Red
+                    fontWeight: 'normal'
+                };
+            case 'ADMIN':
+                return { 
+                    color: '#6f42c1', // Purple
+                    fontWeight: 'bold'
+                };
+            case 'ERROR':
+                return { 
+                    color: '#dc3545', // Red
+                    fontWeight: 'bold'
+                };
+            case 'WARNING':
+                return { 
+                    color: '#ffc107', // Yellow
+                    fontWeight: 'bold'
+                };
+            case 'SYSTEM':
+                return { 
+                    color: '#17a2b8', // Teal
+                    fontWeight: 'normal'
+                };
+            default:
+                return { 
+                    color: '#6c757d', // Gray
+                    fontWeight: 'normal'
+                };
+        }
+    };
 
     return (
         <div className="log-display" style={{ 
@@ -155,6 +200,69 @@ const LogDisplay = () => {
                 </div>
             )}
             
+            <div style={{ 
+                marginBottom: '10px',
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '10px'
+            }}>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <span style={{ 
+                        display: 'inline-block', 
+                        width: '12px', 
+                        height: '12px', 
+                        backgroundColor: '#28a745', 
+                        marginRight: '5px',
+                        borderRadius: '2px'
+                    }}></span>
+                    <span>Vendor</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <span style={{ 
+                        display: 'inline-block', 
+                        width: '12px', 
+                        height: '12px', 
+                        backgroundColor: '#007bff', 
+                        marginRight: '5px',
+                        borderRadius: '2px'
+                    }}></span>
+                    <span>Customer</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <span style={{ 
+                        display: 'inline-block', 
+                        width: '12px', 
+                        height: '12px', 
+                        backgroundColor: '#dc3545', 
+                        marginRight: '5px',
+                        borderRadius: '2px'
+                    }}></span>
+                    <span>Cancellation</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <span style={{ 
+                        display: 'inline-block', 
+                        width: '12px', 
+                        height: '12px', 
+                        backgroundColor: '#6f42c1', 
+                        marginRight: '5px',
+                        borderRadius: '2px'
+                    }}></span>
+                    <span>Admin</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <span style={{ 
+                        display: 'inline-block', 
+                        width: '12px', 
+                        height: '12px', 
+                        backgroundColor: '#17a2b8', 
+                        marginRight: '5px',
+                        borderRadius: '2px'
+                    }}></span>
+                    <span>System</span>
+                </div>
+            </div>
+            
             <div 
                 ref={logListRef}
                 style={{ 
@@ -169,18 +277,26 @@ const LogDisplay = () => {
                 }}
             >
                 {logs.length > 0 ? (
-                    logs.map((log, index) => (
-                        <div 
-                            key={index} 
-                            style={{ 
-                                padding: '5px 0',
-                                borderBottom: index < logs.length - 1 ? '1px solid #f0f0f0' : 'none',
-                                wordBreak: 'break-word'
-                            }}
-                        >
-                            {log}
-                        </div>
-                    ))
+                    logs.map((log, index) => {
+                        // Handle both string logs and object logs
+                        const logType = log.type || 'INFO';
+                        const logMessage = log.message || log;
+                        const logStyle = getLogStyle(logType);
+                        
+                        return (
+                            <div 
+                                key={index} 
+                                style={{ 
+                                    padding: '5px 0',
+                                    borderBottom: index < logs.length - 1 ? '1px solid #f0f0f0' : 'none',
+                                    wordBreak: 'break-word',
+                                    ...logStyle
+                                }}
+                            >
+                                {logMessage}
+                            </div>
+                        );
+                    })
                 ) : (
                     <div style={{ 
                         padding: '20px', 
