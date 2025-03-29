@@ -14,14 +14,20 @@ const LogDisplay = () => {
         setError(null);
         try {
             const logData = await getLogs();
+            console.log('Fetched logs:', logData);
             
-            // Ensure we're handling the data properly regardless of format
+            // Handle different response formats
             if (Array.isArray(logData)) {
                 setLogs(logData);
             } else if (typeof logData === 'string') {
                 setLogs([logData]);
             } else if (logData && typeof logData === 'object') {
-                setLogs([JSON.stringify(logData)]);
+                // If it's an object with a data property (common API response pattern)
+                if (Array.isArray(logData.data)) {
+                    setLogs(logData.data);
+                } else {
+                    setLogs([JSON.stringify(logData)]);
+                }
             } else {
                 setLogs([]);
             }
@@ -36,7 +42,8 @@ const LogDisplay = () => {
     const handleClearLogs = async () => {
         try {
             await clearLogs();
-            await fetchLogs(); // Refresh logs after clearing
+            setLogs([]); // Clear logs immediately in UI
+            await fetchLogs(); // Then refresh from server
         } catch (error) {
             setError(`Failed to clear logs: ${error.message}`);
         }
