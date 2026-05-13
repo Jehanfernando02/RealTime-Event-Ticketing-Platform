@@ -75,7 +75,7 @@ const LogDisplay = () => {
     const getLogType = (log) => {
         if (!log || typeof log !== 'string') return 'info';
         
-        if (log.includes('[Vendor-') || log.includes('added') && log.includes('tickets')) return 'vendor';
+        if (log.includes('[Vendor-') || (log.includes('added') && log.includes('tickets'))) return 'vendor';
         if (log.includes('[Customer-') || log.includes('purchased') || log.includes('retrieved')) return 'customer';
         if (log.includes('canceled') || log.includes('cancelled')) return 'cancel';
         if (log.includes('Admin') || log.includes('returned')) return 'admin';

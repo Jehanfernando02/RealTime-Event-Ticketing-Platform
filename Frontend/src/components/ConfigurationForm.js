@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { configureSystem } from '../services/api'; // Correct path: api.js is in src/services/
 import './Styling/ConfigurationForm.css'; // Correct path: CSS is in src/components/Styling/
 
@@ -11,7 +11,7 @@ const ConfigurationForm = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
 
-  const validateInputs = () => {
+  const validateInputs = useCallback(() => {
     const newErrors = {};
     const totalTicketsNum = Number(totalTickets);
     const ticketReleaseRateNum = Number(ticketReleaseRate);
@@ -28,7 +28,7 @@ const ConfigurationForm = () => {
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  };
+  }, [totalTickets, ticketReleaseRate, customerRetrievalRate, maxTicketCapacity]);
 
   useEffect(() => {
     const isValid = validateInputs();
