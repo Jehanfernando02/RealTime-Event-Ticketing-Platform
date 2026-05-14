@@ -108,7 +108,7 @@ const ConfigurationForm = () => {
           />
           {errors.maxTicketCapacity && <small className="error-text">{errors.maxTicketCapacity}</small>}
         </div>
-        <button type="submit" className="submit-button" disabled={isButtonDisabled || loading}>
+        <button type="submit" className="submit-btn" disabled={isButtonDisabled || loading}>
           {loading ? 'Setting...' : 'Set Configuration'}
         </button>
       </form>

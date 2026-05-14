@@ -43,22 +43,32 @@ const ControlPanel = () => {
   };
 
   return (
-      <div className="control-panel">
-          <h2>Control Panel</h2>
-          <div className="button-group">
-              {/* Buttons for starting, stopping, and resetting the system */}
-              <button onClick={handleStart} className="control-button start-button" disabled={loading}>
-                  {loading ? 'Starting...' : 'Start System'}
-              </button>
-              <button onClick={handleStop} className="control-button stop-button" disabled={loading}>
-                  {loading ? 'Stopping...' : 'Stop System'}
-              </button>
-              <button onClick={handleReset} className="control-button reset-button" disabled={loading}>
-                  {loading ? 'Resetting...' : 'Reset System'}
-              </button>
-          </div>
-      </div>
-  );
+    <div className="control-panel">
+        <div className="button-group">
+            <button
+                onClick={handleStart}
+                className={`action-btn btn-start ${loading ? 'loading' : ''}`}
+                disabled={loading}
+            >
+                {!loading && '▶'} {loading ? 'Starting...' : 'Start System'}
+            </button>
+            <button
+                onClick={handleStop}
+                className={`action-btn btn-stop ${loading ? 'loading' : ''}`}
+                disabled={loading}
+            >
+                {!loading && '■'} {loading ? 'Stopping...' : 'Stop System'}
+            </button>
+            <button
+                onClick={handleReset}
+                className={`action-btn btn-reset ${loading ? 'loading' : ''}`}
+                disabled={loading}
+            >
+                {!loading && '↺'} {loading ? 'Resetting...' : 'Reset System'}
+            </button>
+        </div>
+    </div>
+);
 };
 
 export default ControlPanel;
