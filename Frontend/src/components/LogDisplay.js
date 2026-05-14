@@ -13,33 +13,34 @@ const LogDisplay = ({ systemStarted }) => {
 
     // Set up WebSocket listeners on component mount
     useEffect(() => {
-        // Connect to WebSocket
-        webSocketService.connect(
-    () => {
+    const logsListener = (data) => {
+        if (data.logs && Array.isArray(data.logs)) {
+            setLogs(data.logs);
+            setError(null);
+        }
+    };
+
+    const connectionListener = (data) => {
+        const connected = data.status === 'connected';
+        setWsConnected(connected);
+        if (connected) {
+            setTimeout(() => webSocketService.requestLogs(), 300);
+        }
+    };
+
+    webSocketService.addListener('logs', logsListener);
+    webSocketService.addListener('connection', connectionListener);
+
+    if (webSocketService.getConnectionStatus()) {
         setWsConnected(true);
-        setTimeout(() => {
-            webSocketService.requestLogs();
-        }, 500);
-    },
-    (error) => setWsConnected(false)
-);
+        setTimeout(() => webSocketService.requestLogs(), 300);
+    }
 
-        // Listen for log updates via WebSocket
-        const logsListener = (data) => {
-            if (data.logs && Array.isArray(data.logs)) {
-                setLogs(data.logs);
-                setError(null);
-            }
-        };
-
-        // Register listener
-        webSocketService.addListener('logs', logsListener);
-
-        // Cleanup on unmount
-        return () => {
-            webSocketService.removeListener('logs', logsListener);
-        };
-    }, []);
+    return () => {
+        webSocketService.removeListener('logs', logsListener);
+        webSocketService.removeListener('connection', connectionListener);
+    };
+}, []);
 
     // Auto-scroll to bottom when logs update
     useEffect(() => {
