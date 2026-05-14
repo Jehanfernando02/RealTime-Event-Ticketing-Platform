@@ -23,12 +23,16 @@ public class TicketingService {
     private TicketPool ticketPool; // The current ticket pool
     private List<Thread> vendorThreads = new ArrayList<>(); // List to hold vendor threads
     private List<Thread> customerThreads = new ArrayList<>(); // List to hold customer threads
+    private Thread broadcastThread; // Thread for periodic WebSocket broadcasts
 
     @Autowired
     private TicketConfig ticketConfig; // Injected configuration object
 
     @Autowired
     private LoggingService loggingService; // Inject LoggingService
+
+    @Autowired
+    private WebSocketBroadcastService broadcastService; // Inject WebSocket broadcast service
 
     private final ObjectMapper objectMapper = new ObjectMapper(); // ObjectMapper for JSON operations
 
@@ -86,6 +90,9 @@ public class TicketingService {
             LoggingUtility.getLogger().log(Level.INFO, "{0} started.", customer.getName());
         }
 
+        // Start WebSocket broadcast thread
+        startBroadcastThread();
+
         // Monitor the ticket pool until it is empty or stop command is issued
         new Thread(() -> {
             try {
@@ -105,6 +112,7 @@ public class TicketingService {
     public String stopSystem() {
         stopThreads(vendorThreads);
         stopThreads(customerThreads);
+        stopBroadcastThread();
 
         // Get the final ticket pool size
         int remainingTickets = ticketPool != null ? ticketPool.getCurrentSize() : 0;
@@ -172,6 +180,45 @@ public class TicketingService {
             } catch (InterruptedException e) {
                 LoggingUtility.getLogger().log(Level.WARNING, "{0} was interrupted while stopping.", thread.getName());
                 Thread.currentThread().interrupt(); // Restore interrupted status
+            }
+        }
+    }
+
+    /**
+     * Starts a background thread that periodically broadcasts updates to WebSocket clients.
+     */
+    private void startBroadcastThread() {
+        broadcastThread = new Thread(() -> {
+            while (!Thread.currentThread().isInterrupted()) {
+                try {
+                    // Broadcast logs and status every 500ms for real-time updates
+                    if (broadcastService != null) {
+                        broadcastService.broadcastLogs();
+                        broadcastService.broadcastStatus();
+                    }
+                    Thread.sleep(500); // Broadcast frequency
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
+            }
+        });
+        broadcastThread.setName("WebSocket-Broadcast-Thread");
+        broadcastThread.start();
+    }
+
+    /**
+     * Stops the broadcast thread.
+     */
+    private void stopBroadcastThread() {
+        if (broadcastThread != null && broadcastThread.isAlive()) {
+            broadcastThread.interrupt();
+            try {
+                broadcastThread.join();
+                LoggingUtility.getLogger().log(Level.INFO, "WebSocket broadcast thread stopped.");
+            } catch (InterruptedException e) {
+                LoggingUtility.getLogger().log(Level.WARNING, "WebSocket broadcast thread interrupted.");
+                Thread.currentThread().interrupt();
             }
         }
     }
