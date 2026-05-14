@@ -26,63 +26,61 @@ public class WebSocketBroadcastService {
         this.loggingService = loggingService;
         this.ticketingService = ticketingService;
     }
-    /**
-     * Broadcasts the current logs to all connected WebSocket clients.
-     * Only sends updates if logs have changed.
-     */
+
+    public void resetCache() {
+        lastLogs = null;
+        lastStatus = null;
+    }
+
     public void broadcastLogs() {
         List<String> currentLogs = loggingService.getLogs();
-        
-        // Only broadcast if logs have changed
         if (!logsAreEqual(lastLogs, currentLogs)) {
             lastLogs = new ArrayList<>(currentLogs);
-            
             Map<String, Object> response = new HashMap<>();
             response.put("logs", currentLogs);
             response.put("timestamp", System.currentTimeMillis());
-            
             messagingTemplate.convertAndSend("/topic/logs", response);
         }
     }
 
-    /**
-     * Broadcasts the current ticket status to all connected WebSocket clients.
-     * Only sends updates if status has changed.
-     */
+    public void broadcastLogsForced() {
+        List<String> currentLogs = loggingService.getLogs();
+        lastLogs = new ArrayList<>(currentLogs);
+        Map<String, Object> response = new HashMap<>();
+        response.put("logs", currentLogs);
+        response.put("timestamp", System.currentTimeMillis());
+        messagingTemplate.convertAndSend("/topic/logs", response);
+    }
+
     public void broadcastStatus() {
         int currentTickets = ticketingService.getSystemStatus();
         String currentStatus = String.valueOf(currentTickets);
-        
-        // Only broadcast if status has changed
         if (!currentStatus.equals(lastStatus)) {
             lastStatus = currentStatus;
-            
             Map<String, Object> response = new HashMap<>();
             response.put("currentTicketsAvailable", currentTickets);
             response.put("timestamp", System.currentTimeMillis());
-            
             messagingTemplate.convertAndSend("/topic/status", response);
         }
     }
 
-    /**
-     * Broadcasts a general event/notification to all connected clients.
-     * 
-     * @param eventType The type of event being broadcast
-     * @param message The event message
-     */
+    public void broadcastStatusForced() {
+        int currentTickets = ticketingService.getSystemStatus();
+        lastStatus = String.valueOf(currentTickets);
+        Map<String, Object> response = new HashMap<>();
+        response.put("currentTicketsAvailable", currentTickets);
+        response.put("timestamp", System.currentTimeMillis());
+        messagingTemplate.convertAndSend("/topic/status", response);
+    }
+
     public void broadcastEvent(String eventType, String message) {
         Map<String, Object> response = new HashMap<>();
         response.put("eventType", eventType);
         response.put("message", message);
         response.put("timestamp", System.currentTimeMillis());
-        
         messagingTemplate.convertAndSend("/topic/events", response);
     }
 
-    /**
-     * Compares two lists of logs to determine if they are equal.
-     */
     private boolean logsAreEqual(List<String> list1, List<String> list2) {
         if (list1 == null && list2 == null) return true;
         if (list1 == null || list2 == null) return false;
