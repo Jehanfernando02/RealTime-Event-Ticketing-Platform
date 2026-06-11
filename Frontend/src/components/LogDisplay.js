@@ -5,7 +5,6 @@ import './Styling/LogDisplay.css';
 
 const LogDisplay = ({ systemStarted }) => {
     const [logs, setLogs] = useState([]);
-    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [wsConnected, setWsConnected] = useState(false);
     const [autoRefresh, setAutoRefresh] = useState(true);
